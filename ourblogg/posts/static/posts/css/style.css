@@ -1,0 +1,127 @@
+:root {
+    --color1: #05b1b1;
+    --color2: #52339a;
+}
+
+header, section, footer {
+    padding: 50px 0;
+}
+header, footer {
+    background: url(../img/doge.png), linear-gradient(to right,  #fac695 0%,#f5ab66 47%,#ef8d31 100%);
+    opacity: 0.8;
+    background-size: contain;
+    
+}
+
+.Messages {
+    background-color: #ffffff00;
+}
+.Messages i {
+    font-size: 25px;
+    color: #ef8d31;
+}
+.itd_picture {
+    margin: 0 auto 15px;
+    width: 60px;
+    height: 60px;
+    border: 3px solid #fac695;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.line {
+    width: 100px;
+    height: 3px;
+    background-color: #fac695;
+    margin: 15px auto 30px;
+}
+.form-label {
+    display: inline-block;
+    min-width: 150px;
+    vertical-align: top;
+}
+.exit_button {
+    padding: 0; 
+    border: 0;
+    background-color: transparent;
+    font-family: Arial;
+	font-size: 40px;
+	color: #eee;
+    text-decoration: none;
+	text-shadow: 
+		-0   -1px 1px #000000,
+		 0   -1px 1px #000000,
+		-0    1px 1px #000000,
+		 0    1px 1px #000000,
+		-1px -0   1px #000000,
+		 1px -0   1px #000000,
+		-1px  0   1px #000000,
+		 1px  0   1px #000000,
+		-1px -1px 1px #000000,
+		 1px -1px 1px #000000,
+		-1px  1px 1px #000000,
+		 1px  1px 1px #000000,
+		-1px -1px 1px #000000,
+		 1px -1px 1px #000000,
+		-1px  1px 1px #000000,
+		 1px  1px 1px #000000;
+}
+.text_menu {
+	font-family: Arial;
+	font-size: 40px;
+	color: #eee;
+    text-decoration: none;
+	text-shadow: 
+		-0   -1px 1px #000000,
+		 0   -1px 1px #000000,
+		-0    1px 1px #000000,
+		 0    1px 1px #000000,
+		-1px -0   1px #000000,
+		 1px -0   1px #000000,
+		-1px  0   1px #000000,
+		 1px  0   1px #000000,
+		-1px -1px 1px #000000,
+		 1px -1px 1px #000000,
+		-1px  1px 1px #000000,
+		 1px  1px 1px #000000,
+		-1px -1px 1px #000000,
+		 1px -1px 1px #000000,
+		-1px  1px 1px #000000,
+		 1px  1px 1px #000000;
+}
+
+.title_posts {
+	font-family: Arial;
+	font-size: 30px;
+	color: #eee;
+    text-decoration: none;
+	text-shadow: 
+		-0   -1px 1px #000000,
+		 0   -1px 1px #000000,
+		-0    1px 1px #000000,
+		 0    1px 1px #000000,
+		-1px -0   1px #000000,
+		 1px -0   1px #000000,
+		-1px  0   1px #000000,
+		 1px  0   1px #000000,
+		-1px -1px 1px #000000,
+		 1px -1px 1px #000000,
+		-1px  1px 1px #000000,
+		 1px  1px 1px #000000,
+		-1px -1px 1px #000000,
+		 1px -1px 1px #000000,
+		-1px  1px 1px #000000,
+		 1px  1px 1px #000000;
+}
+.title_posts:hover {
+	color:#f5ab66
+}
+.pagination li{
+    display: inline-block;
+	text-align: center;
+}
+
+ul {
+	list-style-type:  none;
+}

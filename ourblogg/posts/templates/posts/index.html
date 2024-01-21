@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<section class="Messages">
+    <div class="container text-center">
+        <div class="row">
+            {% for object in object_list %}
+                    <div class="col-xl-4 col-md-6 col-sm-12">
+                        <div class="itd_picture"><i class="icon-mail-alt"></i></div>
+                        <h3 class="text-center"><a class="title_posts" href="{{ object.get_absolute_url }}">{{ object.title }}</a></h3>
+                        <h5>{{object.text|linebreaks|truncatewords:50}}</h5>
+                        <h6 class="text-center">{{object.user.username | default:'Автор неизвестен'}}</h6>
+                        <div class = "line"></div>
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% if page_obj.has_other_pages %}
+    <nav class="pagination row">
+            <ul class="text-center">
+            {% for page in paginator.page_range %}
+            <li>
+                <a class="itd_picture title_posts" href="?page={{ page }}">{{ page }}</a>
+            </li>
+            {% endfor %}
+            </ul>
+    </nav>
+{% endif %}
+
+<footer id="footer">
+</footer>
+
+{% endblock %}
