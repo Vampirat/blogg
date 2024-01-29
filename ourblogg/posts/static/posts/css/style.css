@@ -1,8 +1,8 @@
-header, section, footer {
+header, section{
     padding: 50px 0;
 	
 }
-header, footer {
+header {
     background: url(../img/doge.png), linear-gradient(to right,  #fac695 0%,#f5ab66 47%,#ef8d31 100%);
     opacity: 0.8;
     background-size: contain; 
@@ -62,6 +62,9 @@ header, footer {
 		-1px  1px 1px #000000,
 		 1px  1px 1px #000000;
 }
+.exit_button:hover{
+	color:#ef8d31
+}
 .text_menu {
 	font-family: Arial;
 	font-size: 40px;
@@ -110,7 +113,10 @@ header, footer {
 		 1px  1px 1px #000000;
 }
 .title_posts:hover {
-	color:#f5ab66
+	color:#ef8d31
+}
+.text_menu:hover {
+	color:#ef8d31
 }
 .pagination li{
     display: inline-block;

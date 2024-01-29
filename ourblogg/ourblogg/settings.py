@@ -17,7 +17,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-4&+akm2&%8p)3m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -127,4 +127,4 @@ MEDIA_URL = '/media/'
 
 LOGOUT_REDIRECT_URL = 'home'
 
-LOGIN_URL = 'login'
+
