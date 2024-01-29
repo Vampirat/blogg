@@ -127,4 +127,5 @@ MEDIA_URL = '/media/'
 
 LOGOUT_REDIRECT_URL = 'home'
 
+LOGIN_URL = 'login'
 
