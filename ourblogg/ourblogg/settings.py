@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-4&+akm2&%8p)3mwlmmw(a*i0gnex1qa4%j7_o=+u6a*r^l9z8d')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -126,6 +126,6 @@ MEDIA_ROOT = BASE_DIR / 'posts' / 'media'
 MEDIA_URL = '/media/'
 
 LOGOUT_REDIRECT_URL = 'home'
-
 LOGIN_URL = 'login'
 
+AUTH_USER_MODEL = 'auth_user.Profile'

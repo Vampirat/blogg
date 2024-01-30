@@ -2,8 +2,11 @@
 
 {% block content %}
 <h1 class="text-center">{{ title }}</h1>
+{% if user.photo %}
+<p class="text-center"><img class="img" width="200" height="200" src="{{user.photo.url}}"></p>
+{% endif %}
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-error text-center">{{ form.non_field_errors }}</div>
     <div class="container text-center">

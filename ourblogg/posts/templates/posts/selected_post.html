@@ -2,11 +2,12 @@
 
 {% block content %}
  
-<h1>{{object.title}}</h1>
+<h1 class="text-center">{{object.title}}</h1>
+<div class = "line"></div>
  
+<h5 class="text-center">{{object.text|linebreaks}}</h5>
 {% if object.picture %}
-<p><img class="img-article-left" src="{{object.picture.url}}"></p>
+<p class="text-center"><img class="img"  width="200" height="200" src="{{object.picture.url}}"></p>
 {% endif %}
- 
-{{object.text|linebreaks}}
+
 {% endblock %}
