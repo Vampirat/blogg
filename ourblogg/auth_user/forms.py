@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
-from .models import Profile
 
 
 
@@ -16,15 +15,10 @@ class RegisterUserForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ['username', 'first_name', 'last_name', 'email', 'photo']
+        fields = ['username', 'password1', 'password2', 'first_name', 'last_name', 'email', 'photo']
 
         labels = {
             'email': 'e-mail'
-        }
-        widgets = {
-            'email': forms.TextInput(),
-            'first_name': forms.TextInput(),
-            'last_name': forms.TextInput(),
         }
 
     def clean_email(self):
@@ -47,9 +41,4 @@ class ProfileUpdateForm(forms.ModelForm):
 
         labels = {
             'email': 'e-mail'
-        }
-        widgets = {
-            'email': forms.TextInput(),
-            'first_name': forms.TextInput(),
-            'last_name': forms.TextInput(),
         }

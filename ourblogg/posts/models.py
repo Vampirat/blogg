@@ -16,7 +16,13 @@ class PostsModel(models.Model):
     date_update =  models.DateField(auto_now=True, verbose_name='Время изменения')
     picture = models.ImageField(upload_to='photos/posts', blank=True, default=None, verbose_name='Фото')
     is_published = models.BooleanField(default=True, verbose_name='Отображение поста в общей ленте')
-    user = models.ForeignKey('auth_user.Profile', on_delete=models.CASCADE, related_name='author')
+    user = models.ForeignKey('auth_user.Profile', on_delete=models.CASCADE, related_name='author', verbose_name='Автор')
+
+    class Meta:
+
+        verbose_name = 'Посты пользователей'
+        verbose_name_plural = 'Посты пользователей'
+
 
     def save(self, *args, **kwargs):
 

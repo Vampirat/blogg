@@ -15,7 +15,7 @@ from .forms import NewPostForm
 class PostsHomePage(ListView):
     
     template_name = 'posts/index.html'
-    model = PostsModel
+    queryset = PostsModel.objects.filter(is_published=True)
     paginate_by = 6
 
 
@@ -37,7 +37,6 @@ class CreateNewPost(LoginRequiredMixin, CreateView):
 class ShowMyPosts(LoginRequiredMixin, ListView):
     template_name = 'posts/my_posts.html'
     model = PostsModel
-
     def get_queryset(self):
         if self.queryset is not None:
             queryset = self.queryset
