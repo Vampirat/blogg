@@ -8,6 +8,22 @@
 <h5 class="text-center">{{object.text|linebreaks}}</h5>
 {% if object.picture %}
 <p class="text-center"><img class="img"  width="200" height="200" src="{{object.picture.url}}"></p>
+<div class = "line"></div>
 {% endif %}
-
+{% if object.comments %}
+    {% for comment in object.comments.all %}
+        <div class="container-fluid">
+            <div class="row">
+                <cite class="comments_inf">Комментарий от: {{ comment.user }}  {{ comment.date_create}} </cite>
+                <h4 class="comments_style">{{ comment.body }} </h4>
+            </div>
+        </div>
+    {% endfor %}
+    {% if request.user.is_authenticated %}
+        {% include 'posts\includes\comment_form.html' %}
+    {% else %}
+    <h5 class="text-center">Чтобы иметь возможность оставить комментарий - авторизируйтесь в системе</h5>
+    {% endif%}
+{% endif %}
 {% endblock %}
+

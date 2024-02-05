@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import PostsModel
+from .models import PostsModel, CommentsModel
 
 
-
+@admin.register(PostsModel)
 class PostsAdmin(admin.ModelAdmin):
 
     list_display = ('pk', 'title', 'is_published', 'date_create', 'date_update', 'user_id')
@@ -21,4 +21,7 @@ class PostsAdmin(admin.ModelAdmin):
         count = quaryset.update(is_published=True)
         self.message_user(request, f'Вы изменили {count} записей')
 
-admin.site.register(PostsModel, PostsAdmin)
+@admin.register(CommentsModel)
+class CommentsAdmin(admin.ModelAdmin):
+    list_display = ['body', 'date_create', 'active', 'user', 'post']
+    list_editable = ('active', )

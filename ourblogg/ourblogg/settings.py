@@ -96,10 +96,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'GMT'
@@ -109,18 +105,12 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [BASE_DIR / 'posts/static']
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 MEDIA_ROOT = BASE_DIR / 'posts' / 'media'
 MEDIA_URL = '/media/'
@@ -129,3 +119,9 @@ LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
 AUTH_USER_MODEL = 'auth_user.Profile'
+
+EMAIL_HOST = 'smtp.yandex.com:465'
+EMAIL_HOST_USER = 'andrea_adams@yandex.ru'
+EMAIL_HOST_PASSWORD = 'lueoqnnrkvltfudn'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

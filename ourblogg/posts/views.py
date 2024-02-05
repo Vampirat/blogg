@@ -1,14 +1,15 @@
 from typing import Any
+from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, DetailView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ImproperlyConfigured
 
-from .models import PostsModel
-from .forms import NewPostForm
+from .models import PostsModel, CommentsModel
+from .forms import NewPostForm, NewCommentsForm
 
 
 
@@ -17,6 +18,9 @@ class PostsHomePage(ListView):
     template_name = 'posts/index.html'
     queryset = PostsModel.objects.filter(is_published=True)
     paginate_by = 6
+    extra_context = {
+        'title': 'Главная стараница'
+    }
 
 
 class CreateNewPost(LoginRequiredMixin, CreateView):
@@ -35,8 +39,13 @@ class CreateNewPost(LoginRequiredMixin, CreateView):
 
 
 class ShowMyPosts(LoginRequiredMixin, ListView):
+
     template_name = 'posts/my_posts.html'
     model = PostsModel
+    extra_context = {
+        'title': 'Мои записи'
+    }
+    
     def get_queryset(self):
         if self.queryset is not None:
             queryset = self.queryset
@@ -59,6 +68,20 @@ class ShowMyPosts(LoginRequiredMixin, ListView):
         return queryset
     
 
-class SelectedPost(DetailView):
+class SelectedPost(DetailView, CreateView):
     model = PostsModel
-    template_name = 'posts/selected_post.html'
+    template_name = 'posts/selected_post.html' 
+    form_class = NewCommentsForm
+
+    def form_valid(self, form):
+        detail_post = PostsModel.objects.get(slug=self.kwargs['slug'])
+        new_comment = form.save(commit=False)
+        new_comment.user = self.request.user
+        new_comment.post = detail_post
+        return super().form_valid(form)
+    
+    def get_success_url(self) -> str:
+        return reverse('selected_post', kwargs={'slug':self.kwargs['slug']})
+
+
+    
