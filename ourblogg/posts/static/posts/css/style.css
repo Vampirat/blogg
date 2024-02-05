@@ -126,3 +126,12 @@ header {
 ul {
 	list-style-type:  none;
 }
+.comments_style {
+	margin-left: 100px;
+	margin-bottom: 25px;
+	background: linear-gradient(to right,  #fac695 0%,#f5ab66 47%,#ef8d31 100%);
+}
+.comments_inf {
+	margin-left: 85px;
+	margin-bottom: 10px;
+}

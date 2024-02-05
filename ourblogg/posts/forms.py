@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 
-from .models import PostsModel
+from .models import PostsModel, CommentsModel
 
 
 class NewPostForm(ModelForm):
@@ -17,4 +17,13 @@ class NewPostForm(ModelForm):
         widgets = {
             'title': forms.TextInput(),
             'text': forms.Textarea(),
+        }
+
+class NewCommentsForm(ModelForm):
+
+    class Meta:
+        model = CommentsModel
+        fields = ['body']
+        labels = {
+            'body': 'Комментарий'
         }

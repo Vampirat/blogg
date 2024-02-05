@@ -2,11 +2,28 @@
 
 {% block content %}
  
-<h1>{{object.title}}</h1>
+<h1 class="text-center">{{object.title}}</h1>
+<div class = "line"></div>
  
+<h5 class="text-center">{{object.text|linebreaks}}</h5>
 {% if object.picture %}
-<p><img class="img-article-left" src="{{object.picture.url}}"></p>
+<p class="text-center"><img class="img"  width="200" height="200" src="{{object.picture.url}}"></p>
+<div class = "line"></div>
 {% endif %}
- 
-{{object.text|linebreaks}}
+{% if object.comments %}
+    {% for comment in object.comments.all %}
+        <div class="container-fluid">
+            <div class="row">
+                <cite class="comments_inf">Комментарий от: {{ comment.user }}  {{ comment.date_create}} </cite>
+                <h4 class="comments_style">{{ comment.body }} </h4>
+            </div>
+        </div>
+    {% endfor %}
+    {% if request.user.is_authenticated %}
+        {% include 'posts\includes\comment_form.html' %}
+    {% else %}
+    <h5 class="text-center">Чтобы иметь возможность оставить комментарий - авторизируйтесь в системе</h5>
+    {% endif%}
+{% endif %}
 {% endblock %}
+
