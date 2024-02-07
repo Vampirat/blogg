@@ -12,7 +12,7 @@
 {% endif %}
 {% if object.comments %}
     {% for comment in object.comments.all %}
-        {% if object.user.photo %}
+        {% if comment.user.photo %}
             <div class="container-fluid">
                 <div class="row">
                     <cite class="comments_inf"><img class="img" width="133" height="133" src="{{ comment.user.photo.url }}">Комментарий от: {{ comment.user }}  {{ comment.date_create}} </cite>
@@ -29,7 +29,7 @@
         {% endif %}
     {% endfor %}
     {% if request.user.is_authenticated %}
-        {% include 'posts\includes\comment_form.html' %}
+        {% include 'posts/includes/comment_form.html' %}
     {% else %}
     <h5 class="text-center">Чтобы иметь возможность оставить комментарий - авторизируйтесь в системе</h5>
     {% endif%}
