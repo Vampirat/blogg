@@ -121,7 +121,7 @@ LOGIN_URL = 'login'
 AUTH_USER_MODEL = 'auth_user.Profile'
 
 EMAIL_HOST = 'smtp.yandex.com:465'
-EMAIL_HOST_USER = 'andrea_adams@yandex.ru'
-EMAIL_HOST_PASSWORD = 'lueoqnnrkvltfudn'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
