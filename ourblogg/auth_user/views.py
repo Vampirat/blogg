@@ -24,8 +24,6 @@ class LoginUser(LoginView):
     template_name = 'auth_user/login.html'
     extra_context = {'title': 'Войти'}
 
-    def get_success_url(self) -> str:
-        return reverse_lazy('home')
     
 class UpdateUserProfile(LoginRequiredMixin, UpdateView):
 

@@ -117,6 +117,7 @@ MEDIA_URL = '/media/'
 
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
 
 AUTH_USER_MODEL = 'auth_user.Profile'
 
