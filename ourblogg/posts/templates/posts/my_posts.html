@@ -27,16 +27,6 @@
     </div>
 </section>
 
-{% if page_obj.has_other_pages %}
-    <nav class="pagination row">
-            <ul class="text-center">
-            {% for page in paginator.page_range %}
-            <li>
-                <a class="itd_picture title_posts" href="?page={{ page }}">{{ page }}</a>
-            </li>
-            {% endfor %}
-            </ul>
-    </nav>
-{% endif %}
+{% include 'posts/includes/paginator.html' %}
 
 {% endblock %}

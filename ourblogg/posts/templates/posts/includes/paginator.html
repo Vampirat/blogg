@@ -1,0 +1,13 @@
+{% if page_obj.has_other_pages %}
+    <nav class="pagination row">
+            <ul class="text-center">
+            {% for page in paginator.page_range %}
+            {% if page >= page_obj.number|add:-2 and page <= page_obj.number|add:2 %}
+            <li>
+                <a class="itd_picture title_posts" href="?page={{ page }}">{{ page }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            </ul>
+    </nav>
+{% endif %}
