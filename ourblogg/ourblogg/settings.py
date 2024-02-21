@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'posts.apps.PostsConfig',
-    'auth_user.apps.AuthUserConfig'
+    'auth_user.apps.AuthUserConfig',
 ]
 
 MIDDLEWARE = [
@@ -43,6 +43,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'auth_user.authentication.EmailAuthBackend'
+]
 ROOT_URLCONF = 'ourblogg.urls'
 
 TEMPLATES = [

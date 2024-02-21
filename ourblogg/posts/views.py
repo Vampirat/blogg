@@ -11,6 +11,7 @@ from django.core.exceptions import ImproperlyConfigured
 from .models import PostsModel, CommentsModel
 from .forms import NewPostForm, NewCommentsForm
 
+from .some_additions import get_hashtag
 
 
 class PostsHomePage(ListView):
@@ -42,6 +43,7 @@ class ShowMyPosts(LoginRequiredMixin, ListView):
 
     template_name = 'posts/my_posts.html'
     model = PostsModel
+    paginate_by = 6
     extra_context = {
         'title': 'Мои записи'
     }

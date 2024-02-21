@@ -5,8 +5,6 @@ from django.urls import reverse
 from pytils.translit import slugify
 
 
-
-
 class PostsModel(models.Model):
     
     title = models.CharField(max_length=100, verbose_name='Заголовок')
@@ -32,7 +30,7 @@ class PostsModel(models.Model):
         try:
             return super().save(*args, **kwargs)
         except:
-            uniq_slug = slugify(self.title) + '-' + slugify(str(self.date_create))    #позже вместо  времени взять никнейм
+            uniq_slug = slugify(self.title) + '-' + slugify(str(self.date_create)) + '-' + slugify(self.user.username)
             self.slug = slugify(uniq_slug)
             return super().save(*args, **kwargs)
         
