@@ -3,7 +3,15 @@
 {% block content %}
  
 <h1 class="text-center">{{object.title}}</h1>
-<div class = "line"></div>
+{% if object.tags.all %}
+    <div class="container text-center">
+            {% for tag in object.tags.all %}
+                <a class="hashtags_stlye" href="{% url 'selected_tags' tag.slug %}" class="comments_inf">{{ tag }} </a>
+                {% if not forloop.last %} {% endif %}
+            {% endfor %}
+    </div>
+{% endif %}
+<div class="line"></div>
  
 <h5 class="text-center">{{object.text|linebreaks}}</h5>
 {% if object.picture %}
