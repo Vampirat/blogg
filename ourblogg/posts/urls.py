@@ -9,7 +9,7 @@ urlpatterns = [
     path('my_posts/', views.ShowMyPosts.as_view(), name='my_posts'),
     path('new_post/', views.CreateNewPost.as_view(), name='new_post'),
     path('post/<slug:slug>', views.SelectedPost.as_view(), name='selected_post'),
-    
+    path('hashtag/<slug:slug>', views.SelectedTags.as_view(), name='selected_tags'),
 ]
 
 

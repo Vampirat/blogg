@@ -3,6 +3,8 @@ from django.urls import reverse
 
 
 from pytils.translit import slugify
+from taggit.managers import TaggableManager
+
 
 
 class PostsModel(models.Model):
@@ -40,6 +42,7 @@ class PostsModel(models.Model):
     def get_absolute_url(self):
         return reverse('selected_post', kwargs={'slug': self.slug})
     
+    tags = TaggableManager()
 
 class CommentsModel(models.Model):
 

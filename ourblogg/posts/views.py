@@ -1,14 +1,11 @@
-from typing import Any
 from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
-from django.shortcuts import render
-from django.http import HttpResponse
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, DetailView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ImproperlyConfigured
 
-from .models import PostsModel, CommentsModel
+from .models import PostsModel
 from .forms import NewPostForm, NewCommentsForm
 
 from .some_additions import get_hashtag
@@ -31,8 +28,14 @@ class CreateNewPost(LoginRequiredMixin, CreateView):
     extra_context = {'title': 'Новая Запись'}
 
     def form_valid(self, form):
+        tags_list = get_hashtag(form.cleaned_data['text'])
         new_post = form.save(commit=False)
         new_post.user = self.request.user
+        new_post.save()
+        for tag in tags_list:
+            new_post.tags.add(tag)
+        new_post.save()
+        form.save_m2m()
         return super().form_valid(form)
     
     def get_success_url(self) -> str:
@@ -85,5 +88,34 @@ class SelectedPost(DetailView, CreateView):
     def get_success_url(self) -> str:
         return reverse('selected_post', kwargs={'slug':self.kwargs['slug']})
 
+class SelectedTags(ListView):
 
+    template_name = 'posts/index.html'
+    paginate_by = 6
+    model = PostsModel
+    extra_context = {
+        'title': 'Поиск по hashtags'
+    }
     
+    def get_queryset(self):
+        if self.queryset is not None:
+            queryset = self.queryset
+            if isinstance(queryset, QuerySet):
+                queryset = queryset.all()
+        elif self.model is not None:
+            hashtag = self.kwargs['slug']
+            find = PostsModel.tags.get(slug=hashtag)
+            queryset = self.model._default_manager.filter(is_published=True, tags=find.pk)
+        else:
+            raise ImproperlyConfigured(
+                "%(cls)s is missing a QuerySet. Define "
+                "%(cls)s.model, %(cls)s.queryset, or override "
+                "%(cls)s.get_queryset()." % {"cls": self.__class__.__name__}
+            )
+        ordering = self.get_ordering()
+        if ordering:
+            if isinstance(ordering, str):
+                ordering = (ordering,)
+            queryset = queryset.order_by(*ordering)
+
+        return queryset
