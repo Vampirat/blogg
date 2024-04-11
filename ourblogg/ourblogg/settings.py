@@ -7,9 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-# SECRET_KEY = 'django-insecure-4&+akm2&%8p)3mwlmmw(a*i0gnex1qa4%j7_o=+u6a*r^l9z8d'
-
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-4&+akm2&%8p)3mwlmmw(a*i0gnex1qa4%j7_o=+u6a*r^l9z8d')
+SECRET_KEY = 'django-insecure-4&+akm2&%8p)3mwlmmw(a*i0gnex1qa4%j7_o=+u6a*r^l9z8d'
 
 DEBUG = True
 
@@ -103,6 +101,7 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [BASE_DIR / 'posts/static']
 
+STATIC_ROOT = BASE_DIR / 'static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -115,8 +114,12 @@ LOGIN_REDIRECT_URL = 'home'
 
 AUTH_USER_MODEL = 'auth_user.Profile'
 
-EMAIL_HOST = 'smtp.yandex.com:465'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
