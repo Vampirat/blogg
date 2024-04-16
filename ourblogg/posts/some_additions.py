@@ -3,7 +3,7 @@
 def get_hashtag(object:str) -> list:
 
     '''Выделяет из текста хештеги,
-    если они есть и возвращает их кортежем'''
+    если они есть, и возвращает их списком'''
    
     obj_list = object.split()
     tags_list = [word for word in obj_list if word.startswith('#')]
