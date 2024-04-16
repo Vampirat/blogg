@@ -23,8 +23,9 @@
         {% if comment.user.photo %}
             <div class="container-fluid">
                 <div class="row">
-                    <cite class="comments_inf"><img class="img" width="133" height="133" src="{{ comment.user.photo.url }}">Комментарий от: {{ comment.user }}  {{ comment.date_create}} </cite>
-                    <h4 class="comments_style">{{ comment.body }} </h4>
+                    {% load thumbnail %}
+                        <cite class="comments_inf"><img class="img"  src="{% thumbnail comment.user.photo 166x166 %}">Комментарий от: {{ comment.user }}  {{ comment.date_create}} </cite>
+                        <h4 class="comments_style">{{ comment.body }} </h4>
                 </div>
             </div>
         {% else %}

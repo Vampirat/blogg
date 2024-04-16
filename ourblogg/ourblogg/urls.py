@@ -5,5 +5,6 @@ from django.contrib import admin
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('posts.urls')),
-    path('', include('auth_user.urls'))
+    path('', include('auth_user.urls')),
+    path('social-auth/', include('social_django.urls'))
 ]

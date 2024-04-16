@@ -19,3 +19,7 @@ class EmailAuthBackend(BaseBackend):
             return model.objects.get(pk=user_id)
         except model.DoesNotExist:
             return None
+
+def create_profile(backend, user, *args, **kwargs):
+    model = get_user_model
+    model.objects.get_or_create(user=user)
