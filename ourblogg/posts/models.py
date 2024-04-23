@@ -17,6 +17,7 @@ class PostsModel(models.Model):
     picture = models.ImageField(upload_to='photos/posts', blank=True, default=None, verbose_name='Фото')
     is_published = models.BooleanField(default=True, verbose_name='Отображение поста в общей ленте')
     user = models.ForeignKey('auth_user.Profile', on_delete=models.CASCADE, related_name='author', verbose_name='Автор')
+    users_likes = models.ManyToManyField('auth_user.Profile', blank=True, related_name='posts_liked', verbose_name='Лайки')
 
     class Meta:
         ordering = ['-date_create']

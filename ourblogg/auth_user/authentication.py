@@ -1,6 +1,8 @@
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth import get_user_model
 
+from .models import Profile
+
 
 class EmailAuthBackend(BaseBackend):
 
@@ -21,5 +23,5 @@ class EmailAuthBackend(BaseBackend):
             return None
 
 def create_profile(backend, user, *args, **kwargs):
-    model = get_user_model
-    model.objects.get_or_create(user=user)
+    
+    Profile.objects.get_or_create(username=user)
