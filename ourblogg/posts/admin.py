@@ -5,7 +5,7 @@ from .models import PostsModel, CommentsModel
 @admin.register(PostsModel)
 class PostsAdmin(admin.ModelAdmin):
 
-    list_display = ('pk', 'title', 'is_published', 'date_create', 'date_update', 'user_id', 'tag_list')
+    list_display = ('pk', 'title', 'is_published', 'date_create', 'date_update', 'user_id', 'tag_list', )
     ordering = ['pk', 'is_published', 'title', 'date_create']
     list_editable = ('is_published', )
     list_filter = ['is_published', 'date_create', ]

@@ -4,6 +4,9 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, DetailView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ImproperlyConfigured
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 from .models import PostsModel
 from .forms import NewPostForm, NewCommentsForm
@@ -119,3 +122,20 @@ class SelectedTags(ListView):
             queryset = queryset.order_by(*ordering)
 
         return queryset
+    
+@login_required
+@require_POST
+def image_like(request):
+    post_id = request.POST.get('id')
+    action = request.POST.get('action')
+    if post_id and action:
+        try:
+            post = PostsModel.objects.get(id=post_id)
+            if action == 'like':
+                post.users_likes.add(request.user)
+            else:
+                post.users_likes.remove(request.user)
+            return JsonResponse({'status': 'ok'})
+        except PostsModel.DoesNotExist:
+            pass
+        return JsonResponse({'status': 'error'})
