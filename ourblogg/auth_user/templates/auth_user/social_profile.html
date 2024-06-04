@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-center">{{ title }}</h1>
+    {% if user.photo %}
+        {% load thumbnail %}
+        <p class="text-center"><img class="img" src="{% thumbnail user.photo 200x200 %}"></p>
+    {% else %}
+    <h1 class="text-center"> У вас нет фотографии :C <h1>  
+    {% endif %}
+    <div class = "line"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <h4 class="comments_inf text-center">Данные пользователя:</h4>
+            <b class="comments_inf text-center" >{{ user.username }}</b>
+            <b class="comments_inf text-center">{{ user.first_name }}</b>
+            <b class="comments_inf text-center">{{ user.last_name}}</b>
+        </div>
+    </div>
+{% endblock %}
