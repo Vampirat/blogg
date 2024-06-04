@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row">
                 {% for m in menu %}
-                    <div class="col-xl-4 col-md-6 col-sm-12">
+                    <div class="col-xl-3 col-md-6 col-sm-12">
                         <h2 class="text-center"><a class="text_menu" href="{% url m.url_name %}"><strong>{{ m.menu_name }}</strong></a></h2>
                     </div>
                 {% endfor %}
@@ -27,12 +27,12 @@
                     <div class="text-center">
                         <form method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
-		                    <h2> <a class="text_menu" href="{% url 'update-profile' %}"><strong>{{user.username}}</strong></a>  <a><button class="exit_button" type="submit"><strong>Выйти</strong></button></a></h2>
+		                    <h2> <a class="text_menu" href="{{ user.get_absolute_url}}"><strong>{{user.username}}</strong></a> | <a class="text_menu" href="{% url 'update_profile' %}"><strong>Редактировать профиль</strong></a> |<a><button class="exit_button" type="submit"><strong>Выйти</strong></button></a></h2>
                         </form>
                     </div>
 	            {% else %}
                     <div class="text-center">
-		            <h2><a class="text_menu" href="{% url 'login' %}"><strong>Войти</strong></a> | <a class="text_menu" href="{% url 'register' %}"><strong>Регистрация</strong></a></h2>
+		            <h2><a class="text_menu" href="{% url 'login' %}"><strong>Войти</strong></a> | <a class="text_menu" href="{% url 'register' %}"><strong>Регистрация</strong></a> | 
                     </div>
 	            {% endif %}
             </div>
