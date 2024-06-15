@@ -27,7 +27,7 @@
                     <div class="text-center">
                         <form method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
-		                    <h2> <a class="text_menu" href="{{ user.get_absolute_url}}"><strong>{{user.username}}</strong></a> | <a class="text_menu" href="{% url 'update_profile' %}"><strong>Редактировать профиль</strong></a> |<a><button class="exit_button" type="submit"><strong>Выйти</strong></button></a></h2>
+		                    <h2> <a class="text_menu" href="{{ user.get_absolute_url}}"><strong>{{request.user.username}}</strong></a> | <a class="text_menu" href="{% url 'update_profile' %}"><strong>Редактировать профиль</strong></a> |<a><button class="exit_button" type="submit"><strong>Выйти</strong></button></a></h2>
                         </form>
                     </div>
 	            {% else %}

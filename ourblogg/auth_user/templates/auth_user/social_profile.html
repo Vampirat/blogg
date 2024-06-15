@@ -6,15 +6,74 @@
         {% load thumbnail %}
         <p class="text-center"><img class="img" src="{% thumbnail user.photo 200x200 %}"></p>
     {% else %}
-    <h1 class="text-center"> У вас нет фотографии :C <h1>  
+        <div class="text-center">
+            <b>Нет фотографии :C</b>
+        </div> 
     {% endif %}
+    {% with total_followers=user.followers.count %}
     <div class = "line"></div>
     <div class="container-fluid">
         <div class="row">
-            <h4 class="comments_inf text-center">Данные пользователя:</h4>
-            <b class="comments_inf text-center" >{{ user.username }}</b>
-            <b class="comments_inf text-center">{{ user.first_name }}</b>
-            <b class="comments_inf text-center">{{ user.last_name}}</b>
+            <h4 class="text-center">Данные пользователя:</h4>
+            <b class="text-center" >{{ user.username }}</b>
+            <b class="text-center">{{ user.first_name }}</b>
+            <b class="text-center">{{ user.last_name}}</b>
+            <b class="text-center">Последний раз в сети: {{ user.last_login}}</b>
         </div>
+    <div class="text-center">
+        <b>
+            <span class="count"> 
+                <span class="total">{{ total_followers }}</span>
+                фолловеров
+            </span>
+        </b>
     </div>
+    {% if request.user != user %}
+        <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}Отписаться{% else %}Подписаться{% endif %}" class="itd_picture like_button">
+            {% if request.user not in user.followers.all %}
+                Подписаться
+            {% else %}
+                Отписаться
+            {% endif %}
+        </a>
+    </div>
+    {% endif %}
+    {% endwith %}
+{% endblock %}
+
+{% block domready %}
+  const url = '{% url "user_follow" %}';
+  var options = {
+    method: 'POST',
+    headers: {'X-CSRFToken': csrftoken},
+    mode: 'same-origin'
+  }
+
+  document.querySelector('a.like_button')
+          .addEventListener('click', function(e){
+    e.preventDefault();
+    var followButton = this;
+
+    var formData = new FormData();
+    formData.append('id', followButton.dataset.id);
+    formData.append('action', followButton.dataset.action);
+    options['body'] = formData;
+
+    fetch(url, options)
+    .then(response => response.json())
+    .then(data => {
+      if (data['status'] === 'ok')
+      {
+        var previousAction = followButton.dataset.action;
+
+        var action = previousAction === 'Подписаться' ? 'Отписаться' : 'Подписаться';
+        followButton.dataset.action = action;
+        followButton.innerHTML = action;
+
+        var followerCount = document.querySelector('span.count .total');
+        var totalFollowers = parseInt(followerCount.innerHTML);
+        followerCount.innerHTML = previousAction === 'Подписаться' ? totalFollowers + 1 : totalFollowers - 1;
+      }
+    })
+  });
 {% endblock %}
