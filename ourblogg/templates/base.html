@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row">
                 {% for m in menu %}
-                    <div class="col-xl-3 col-md-6 col-sm-12">
+                    <div class="col-xl col-md col-sm">
                         <h2 class="text-center"><a class="text_menu" href="{% url m.url_name %}"><strong>{{ m.menu_name }}</strong></a></h2>
                     </div>
                 {% endfor %}

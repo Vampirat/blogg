@@ -11,8 +11,8 @@ from django.http import JsonResponse
 from .models import PostsModel
 from .forms import NewPostForm, NewCommentsForm
 
-from .some_additions import get_hashtag
-
+from .utils import get_hashtag
+from actions.utils import create_action
 
 class PostsHomePage(ListView):
     
@@ -35,6 +35,7 @@ class CreateNewPost(LoginRequiredMixin, CreateView):
         new_post = form.save(commit=False)
         new_post.user = self.request.user
         new_post.save()
+        create_action(self.request.user, 'запостил', new_post)
         for tag in tags_list:
             new_post.tags.add(tag)
         new_post.save()
@@ -86,6 +87,7 @@ class SelectedPost(DetailView, CreateView):
         new_comment = form.save(commit=False)
         new_comment.user = self.request.user
         new_comment.post = detail_post
+        create_action(self.request.user, 'оставил комментарий к', detail_post)
         return super().form_valid(form)
     
     def get_success_url(self) -> str:
@@ -125,7 +127,7 @@ class SelectedTags(ListView):
     
 @login_required
 @require_POST
-def image_like(request):
+def post_like(request):
     post_id = request.POST.get('id')
     action = request.POST.get('action')
     if post_id and action:
@@ -133,6 +135,7 @@ def image_like(request):
             post = PostsModel.objects.get(id=post_id)
             if action == 'like':
                 post.users_likes.add(request.user)
+                create_action(request.user, 'лайкнул', post)
             else:
                 post.users_likes.remove(request.user)
             return JsonResponse({'status': 'ok'})

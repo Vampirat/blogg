@@ -13,8 +13,8 @@ from django.urls import reverse_lazy
 
 from .forms import RegisterUserForm, ProfileUpdateForm, ProfilePasswordChangeForm
 from .models import Profile, SubscriptionModel
-
-
+from actions.utils import create_action
+from actions.models import Action
 
 class RegisterUser(CreateView):
     
@@ -22,6 +22,11 @@ class RegisterUser(CreateView):
     template_name = 'auth_user/register.html'
     extra_context = {'title': 'Регистрация',}
     success_url = reverse_lazy('login')
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        create_action(self.object, 'только что создал новый аккаунт!')
+        return super().form_valid(form)
 
 class LoginUser(LoginView):
     
@@ -72,9 +77,23 @@ def user_follow(request):
             user = Profile.objects.get(id=user_id)
             if action == 'Подписаться':
                 SubscriptionModel.objects.get_or_create(user_from=request.user, user_to=user)
+                create_action(request.user, 'подписался на', user)
             else:
                 SubscriptionModel.objects.filter(user_from=request.user, user_to=user).delete()
             return JsonResponse({'status': 'ok'})
         except Profile.DoesNotExist:
             return JsonResponse({'status': 'error'})
     return JsonResponse({'status': 'error'})
+
+@login_required
+def new_actions(request):
+    actions = Action.objects.all()    #exclude(user=request.user)
+    following_ids = request.user.following.values_list('id', flat=True)
+
+    if following_ids:
+        user_follow_actions = actions.filter(user_id__in=following_ids)
+        if user_follow_actions:
+            actions = user_follow_actions.select_related('user')[:10].prefetch_related('target')[:10]
+        else:
+            actions = actions.select_related('user')[:10].prefetch_related('target')[:10]
+    return render(request, 'auth_user/new_actions.html', {'title': 'Лента активности', 'actions': actions})

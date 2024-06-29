@@ -10,7 +10,7 @@ urlpatterns = [
     path('new-post/', views.CreateNewPost.as_view(), name='new_post'),
     path('post/<slug:slug>', views.SelectedPost.as_view(), name='selected_post'),
     path('hashtag/<slug:slug>', views.SelectedTags.as_view(), name='selected_tags'),
-    path('like/', views.image_like, name='like')
+    path('like/', views.post_like, name='like')
 ]
 
 
