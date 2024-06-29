@@ -1,5 +1,5 @@
 {% extends 'base.html'%}
-
+{% load static %}
 
 {% block content %}
 <section class="Messages">
@@ -11,7 +11,7 @@
                         {% load thumbnail %}
                             <img class="img"  src="{% thumbnail user.photo 166x166 %}">
                         {% else %}
-                            <b class="comments_inf text-center" >У пользователя еще нет фотографии :C</b>
+                            <img class="img"  src={% static "posts/img/default.png" %}>
                         {% endif %}
                         <h3 class="text-center"><a class="title_posts" href="{{ user.get_absolute_url }}">{{ user.first_name}} {{ user.last_name }}</a></h3>
                         <div class = "line"></div>

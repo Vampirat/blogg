@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <h1 class="text-center">{{object.title}}</h1>
@@ -34,22 +35,17 @@
 {% endif %}
 {% if object.comments %}
     {% for comment in object.comments.all %}
-        {% if comment.user.photo %}
             <div class="container-fluid">
                 <div class="row">
                     {% load thumbnail %}
-                        <cite class="comments_inf"><img class="img"  src="{% thumbnail comment.user.photo 166x166 %}">Комментарий от: {{ comment.user }}  {{ comment.date_create}} </cite>
+                        {% if comment.user.photo %}
+                            <cite class="comments_inf"><img class="img"  src="{% thumbnail comment.user.photo 166x166 %}">Комментарий от: {{ comment.user }}  {{ comment.date_create}} </cite>
+                        {% else %}
+                            <cite class="comments_inf"><img class="img"  src={% static "posts/img/default.png" %}>Комментарий от: {{ comment.user }}  {{ comment.date_create}} </cite>
+                        {% endif %}
                         <h4 class="comments_style">{{ comment.body }} </h4>
                 </div>
             </div>
-        {% else %}
-        <div class="container-fluid">
-            <div class="row">
-                <cite class="comments_inf">Комментарий от: {{ comment.user }}  {{ comment.date_create}} </cite>
-                <h4 class="comments_style">{{ comment.body }} </h4>
-            </div>
-        </div>
-        {% endif %}
     {% endfor %}
     {% if request.user.is_authenticated %}
         {% include 'posts/includes/comment_form.html' %}

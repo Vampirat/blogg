@@ -12,6 +12,7 @@ urlpatterns = [
     path('profile/follow/', views.user_follow, name='user_follow'),
     path('profile/<username>/', views.social_profile, name='social_profile'),
     path('profiles/', views.all_profiles_list, name='all_profiles'),
+    path('activity/', views.new_actions, name='actions'),
     
     #cмена пароля
     path('password-change/', views.ProfilePasswordChange.as_view(), name='password_change'),

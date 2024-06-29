@@ -47,12 +47,12 @@ class PostsModel(models.Model):
 
 class CommentsModel(models.Model):
 
-    body = models.TextField()
+    body = models.TextField(verbose_name='Текст комментария')
     date_create = models.DateField(auto_now_add=True, verbose_name='Время создания')
     date_update =  models.DateField(auto_now=True, verbose_name='Время изменения')
     active = models.BooleanField(default=True)
     user = models.ForeignKey('auth_user.Profile', on_delete=models.CASCADE, related_name='nickname', verbose_name='Автор')
-    post = models.ForeignKey(PostsModel, on_delete=models.CASCADE, related_name='comments')
+    post = models.ForeignKey(PostsModel, on_delete=models.CASCADE, related_name='comments', verbose_name='Выбрать пост')
 
     class Meta:
         ordering = ['-date_create']

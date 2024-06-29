@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'posts.apps.PostsConfig',
     'auth_user.apps.AuthUserConfig',
+    'actions.apps.ActionsConfig',
     'taggit',
     'easy_thumbnails',
     'social_django',
